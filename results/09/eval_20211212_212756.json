@@ -1,0 +1,1 @@
+{"config": "quick_config/mask_rcnn_r101_fpn_2x_coco.py", "metric": {"segm_mAP": 0.122, "segm_mAP_50": 0.598, "segm_mAP_75": 0.206, "segm_mAP_s": 0.279, "segm_mAP_m": 0.165, "segm_mAP_l": -1.0, "segm_mAP_copypaste": "0.122 0.598 0.206 0.279 0.165 -1.000"}}
