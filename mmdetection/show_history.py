@@ -1,7 +1,8 @@
 import json
-import os 
+import os
 import matplotlib.pyplot as plt
 import argparse
+
 
 def main(args):
     f_json = open(args.work_dir, 'r')
@@ -41,7 +42,7 @@ def main(args):
         segm_mAP_s.append(json_ele['segm_mAP_s'])
         segm_mAP_m.append(json_ele['segm_mAP_m'])
         segm_mAP_l.append(json_ele['segm_mAP_l'])
-    
+
     fig, ax = plt.subplots(1, 2, figsize=(10, 5))
     ax[0].plot(bbox_mAP, label='bbox_mAP')
     ax[0].plot(bbox_mAP_50, label='bbox_mAP_50')
@@ -58,8 +59,8 @@ def main(args):
     ax[1].plot(segm_mAP_m, label='segm_mAP_m')
     ax[1].set_title('Segm result')
     ax[1].legend()
-    
-    plt.ylim((0,1))
+
+    plt.ylim((0, 1))
     plt.show()
     fig.savefig('history.png')
 
@@ -69,7 +70,8 @@ def main(args):
     # plt.savefig('{}.png'.format(fname))
     # print('{}.png saved.'.format(fname))
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('work_dir', type=str)
     args = parser.parse_args()

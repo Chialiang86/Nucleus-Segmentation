@@ -11,15 +11,15 @@ if [ "$#" -eq 2 ]; then
     echo "function : $1"
 
     if [ $1 = "train" ]; then
-        weight="results/$2/epoch_30.pth"
+        weight="results/$2/latest.pth"
         echo "working directory = results/$2"
         python3.7 tools/train.py $config --work-dir results/$2
     elif [ $1 = "val" ]; then
-        weight="results/$2/epoch_30.pth"
+        weight="results/$2/latest.pth"
         echo "working directory = results/$2"
         python3.7 tools/val.py $config $weight --work-dir results/$2 --show --eval segm
     elif [ $1 = "test" ]; then
-        weight="results/$2/epoch_30.pth"
+        weight="results/$2/latest.pth"
         echo "working directory = results/$2"
         python3.7 tools/test.py $config $weight --work-dir results/$2 --format-only --options "jsonfile_prefix=answer"
         python3.7 format_answer.py

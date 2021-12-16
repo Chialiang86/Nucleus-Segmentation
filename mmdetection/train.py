@@ -163,7 +163,8 @@ def main():
     meta['seed'] = seed
     meta['exp_name'] = osp.basename(args.config)
 
-    print('train_cfg : {}, test cfg : {}'.format(cfg.get('train_cfg'), cfg.get('test_cfg')))
+    print('train_cfg : {}, test cfg : {}'.format(
+        cfg.get('train_cfg'), cfg.get('test_cfg')))
     model = build_detector(
         cfg.model,
         train_cfg=cfg.get('train_cfg'),

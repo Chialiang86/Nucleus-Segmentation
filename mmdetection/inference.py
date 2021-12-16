@@ -5,6 +5,7 @@ import argparse
 import json
 import os
 
+
 def main(args):
     config_file = args.config
     checkpoint_file = args.weight
@@ -12,7 +13,6 @@ def main(args):
 
     test_f = open('dataset/test_img_ids.json')
     test_json = json.load(test_f)
-
 
     for element in test_json:
         prefix = 'dataset/test'
@@ -23,11 +23,10 @@ def main(args):
         break
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('config',  default='', type=str)
+    parser.add_argument('config', default='', type=str)
     parser.add_argument('weight', default='', type=str)
     args = parser.parse_args()
 
     main(args)
-    

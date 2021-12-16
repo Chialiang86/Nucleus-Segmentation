@@ -9,23 +9,30 @@ from shapely.geometry import Polygon, MultiPolygon
 import cv2
 import argparse
 
+
 def segs_area_bbox(img):
     # encoded_ground_truth = mask.encode(img)
     # ground_truth_area = mask.area(encoded_ground_truth)
     # ground_truth_bounding_box = mask.toBbox(encoded_ground_truth)
     contours = measure.find_contours(img, 0.5, positive_orientation='low')
-    
+
     polygons = []
     segs = []
     for contour in contours:
         for i in range(len(contour)):
             row, col = contour[i]
-            
-            contour[i] = (col - 1 if col - 1 >= 0 else 0, row - 1 if row - 1 >= 0 else 0) # from (row, col) to (x, y)
-    
+
+            contour[i] = (
+                col -
+                1 if col -
+                1 >= 0 else 0,
+                row -
+                1 if row -
+                1 >= 0 else 0)  # from (row, col) to (x, y)
+
         poly = Polygon(contour)
         poly = poly.simplify(1.0, preserve_topology=False)
-        
+
         if(poly.is_empty):
             # Go to next iteration, dont save empty values in list
             continue
@@ -40,8 +47,9 @@ def segs_area_bbox(img):
     height = max_y - min_y
     bbox = (min_x, min_y, width, height)
     area = polygons[-1].area
-    
+
     return segs, area, bbox
+
 
 def main(args):
     training_dirs = os.listdir('dataset/train')
@@ -69,7 +77,7 @@ def main(args):
             cnt += 1
 
             images.append({
-                "file_name" : img_path[8:],
+                "file_name": img_path[8:],
                 'height': 1000,
                 'width': 1000,
                 'id': cnt
@@ -79,8 +87,8 @@ def main(args):
                 img = Image.open(mask_path)
                 img = np.asfortranarray(img) // 255
 
-                segs, area, bbox = segs_area_bbox(img) 
-                
+                segs, area, bbox = segs_area_bbox(img)
+
                 if cnt > args.split_num:
                     annotations_train.append({
                         "segmentation": segs,
@@ -91,7 +99,7 @@ def main(args):
                         "category_id": 1,
                         "id": anno_id
                     })
-                else :
+                else:
                     annotations_val.append({
                         "segmentation": segs,
                         "area": area,
@@ -109,7 +117,7 @@ def main(args):
         "categories": categories,
         "annotations": annotations_train
     }
-    
+
     coco_format_val = {
         "images": images[:args.split_num],
         "categories": categories,
@@ -118,7 +126,7 @@ def main(args):
 
     with open('{}/train_annotation.json'.format(args.dir), 'w') as f:
         json.dump(coco_format_train, f, indent=4)
-    
+
     with open('{}/val_annotation.json'.format(args.dir), 'w') as f:
         json.dump(coco_format_val, f, indent=4)
 
@@ -129,13 +137,13 @@ def main(args):
     #     x2 = int(c[i+2])
     #     y2 = int(c[i+3])
     #     cv2.line(img, (y1, x1), (y2, x2), (0, 0, 255), 2)
-    
+
     # cv2.imshow('s',img)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--split_num', '-s', default=5, type=int)
     parser.add_argument('--dir', '-d', default='dataset', type=str)
