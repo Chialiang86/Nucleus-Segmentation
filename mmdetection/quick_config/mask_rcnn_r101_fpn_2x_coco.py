@@ -22,7 +22,7 @@ model = dict(
         feat_channels=256,
         anchor_generator=dict(
             type='AnchorGenerator',
-            scales=[8], # modified
+            scales=[8],  # modified
             ratios=[0.5, 1.0, 2.0],
             strides=[4, 8, 16, 32, 64]),
         bbox_coder=dict(
@@ -85,8 +85,8 @@ model = dict(
             pos_weight=-1,
             debug=False),
         rpn_proposal=dict(
-            nms_pre=2000, # modified
-            max_per_img=1000, # modified
+            nms_pre=2000,  # modified
+            max_per_img=1000,  # modified
             nms=dict(type='nms', iou_threshold=0.7),
             min_bbox_size=0),
         rcnn=dict(
@@ -108,14 +108,14 @@ model = dict(
             debug=False)),
     test_cfg=dict(
         rpn=dict(
-            nms_pre=3000, # modified
-            max_per_img=2000, # modified
+            nms_pre=3000,  # modified
+            max_per_img=2000,  # modified
             nms=dict(type='nms', iou_threshold=0.7),
             min_bbox_size=0),
         rcnn=dict(
             score_thr=0.05,
             nms=dict(type='nms', iou_threshold=0.5),
-            max_per_img=2000, # modified
+            max_per_img=2000,  # modified
             mask_thr_binary=0.5)))
 dataset_type = 'CocoDataset'
 data_root = 'dataset/'
