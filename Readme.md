@@ -32,7 +32,7 @@
         - val : `sh run.sh val 01`
         - test : `sh run.sh test 01`
         - inference : `sh run.sh inference epoch_50.pth`
-:::spoiler The script in `run.sh`
+- The script in `run.sh`
 ```shell 
 # check command line argements
 if [ "$#" -eq 2 ]; then 
@@ -74,8 +74,6 @@ else
     echo "[error] command line argument number should be 2"
 fi
 ```
-:::
-
 
 ## Training
 1. Download pretrained weight (R-101-FPN with Lr schd 2x in https://github.com/open-mmlab/mmdetection/tree/master/configs/mask_rcnn).
